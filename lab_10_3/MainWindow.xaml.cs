@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,27 @@ namespace lab_10_3
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string first, second;
+        private int k, l, m, n;
         public MainWindow()
         {
             InitializeComponent();
+            first = Environment.CurrentDirectory + "\\first.txt";
+            second = Environment.CurrentDirectory + "\\second.txt";
+            FileInfo firstFile=new FileInfo(first);
+            FileInfo secondFile=new FileInfo(second);
+            if (firstFile.Exists) firstFile.Delete();
+            else firstFile.Create();
+            if (secondFile.Exists) secondFile.Delete();
+            else secondFile.Create();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            k = int.Parse(K.Text);
+            l=int.Parse(L.Text);
+            m=int.Parse(M.Text);
+            n=int.Parse(N.Text);
 
         }
     }
