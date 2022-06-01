@@ -9,6 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -16,13 +17,24 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ToolBar Grid.Row="0" Grid.ColumnSpan="2">
-            <Button Content="Сгенерировать"/>
+            <Button Content="Сгенерировать" Click="Button_Click"/>
             <Separator/>
             <Button Content="Выполнить"/>
         </ToolBar>
-        <TextBlock x:Name="Table1" Grid.Column="0" Grid.Row="1"
+        <TextBlock x:Name="Table1" Grid.Column="0" Grid.Row="2"
                    Margin="10"/>
-        <TextBlock x:Name="Table2" Grid.Column="1" Grid.Row="1"
+        <TextBlock x:Name="Table2" Grid.Column="1" Grid.Row="2"
                    Margin="10"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1"
+                    Grid.ColumnSpan="2">
+            <Label Content="K="/>
+            <TextBox x:Name="K" Width="100"/>
+            <Label Content="L="/>
+            <TextBox x:Name="L" Width="100"/>
+            <Label Content="M="/>
+            <TextBox x:Name="M" Width="100"/>
+            <Label Content="N="/>
+            <TextBox x:Name="N" Width="100"/>
+        </StackPanel>
     </Grid>
 </Window>
