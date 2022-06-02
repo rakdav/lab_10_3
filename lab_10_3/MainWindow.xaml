@@ -19,7 +19,7 @@
         <ToolBar Grid.Row="0" Grid.ColumnSpan="2">
             <Button Content="Сгенерировать" Click="Button_Click"/>
             <Separator/>
-            <Button Content="Выполнить"/>
+            <Button Content="Выполнить" Click="Button_Click_1"/>
         </ToolBar>
         <TextBlock x:Name="Table1" Grid.Column="0" Grid.Row="2"
                    Margin="10"/>
@@ -31,10 +31,12 @@
             <TextBox x:Name="K" Width="100"/>
             <Label Content="L="/>
             <TextBox x:Name="L" Width="100"/>
-            <Label Content="M="/>
-            <TextBox x:Name="M" Width="100"/>
             <Label Content="N="/>
             <TextBox x:Name="N" Width="100"/>
+            <Label Content="M="/>
+            <TextBox x:Name="M" Width="100"/>
+            <Label Content="Z="/>
+            <TextBox x:Name="Z" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

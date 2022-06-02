@@ -22,7 +22,78 @@ namespace lab_10_3
     public partial class MainWindow : Window
     {
         private string first, second;
-        private int k, l, m, n;
+        private int k, l, m, n,z;
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            z=int.Parse(Z.Text);
+            List<int[,]> list1 =await ReadMatrix(first);
+            List<int[,]> list2 =await ReadMatrix(second);
+            for(int i = 0; i < list1.Count; i++)
+            {
+                if(list1[i][0,0]==z)
+                {
+                    for(int q=0;q<n;q++)
+                    {
+                        for (int w = 0; w < m; w++)
+                        {
+                            if (q == w)
+                            {
+                                list2[i][q, w] = list1[i][q, w];
+                            }
+                        }
+                    }
+                }
+            }
+            using (StreamWriter writer = new StreamWriter(second, false))
+            {
+                for (int i = 0; i < list1.Count; i++)
+                {
+                    for (int q = 0; q < n; q++)
+                    {
+                       for (int w = 0; w < m; w++)
+                       {
+                         await writer.WriteAsync(list2[i][q,w]+" ");
+                       }
+                       await writer.WriteLineAsync();
+                    }
+                    await writer.WriteLineAsync();
+                } 
+            }
+            using (StreamReader reader = new StreamReader(second))
+            {
+                string text = await reader.ReadToEndAsync();
+                Table2.Text = text;
+            }
+        }
+        private async Task<List<int[,]>> ReadMatrix(string file)
+        {
+            List<int[,]> list = new List<int[,]>();
+            using (StreamReader reader = new StreamReader(file))
+            {
+                string? line;
+                int[,] matrix = new int[n, m];
+                int a=0;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    if(!line.Equals(""))
+                    {
+                        string[] mas = line.Split(" ");
+                        for(int i = 0; i < mas.Length-1; i++)
+                        {
+                            matrix[a,i]=int.Parse(mas[i]);
+                        }
+                        a++;
+                    }
+                    else
+                    {
+                        list.Add(matrix);
+                        a = 0;
+                    }
+                }
+            }
+            return list;
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -42,7 +113,40 @@ namespace lab_10_3
             l=int.Parse(L.Text);
             m=int.Parse(M.Text);
             n=int.Parse(N.Text);
-
+            GenMatrix(first,k,Table1);
+            GenMatrix(second,l,Table2);
+        }
+        private async void GenMatrix(string file, int a,TextBlock t)
+        {
+            Random random = new Random();
+            for (int x = 1; x <= a; x++)
+            {
+                int[,] mas = new int[n, m];
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        mas[i, j] = random.Next(10, 100);
+                        using (StreamWriter writer = new StreamWriter(file, true))
+                        {
+                            await writer.WriteAsync(mas[i, j] + " ");
+                        }
+                    }
+                    using (StreamWriter writer = new StreamWriter(file, true))
+                    {
+                        await writer.WriteLineAsync();
+                    }
+                }
+                using (StreamWriter writer = new StreamWriter(file, true))
+                {
+                    await writer.WriteLineAsync();
+                }
+            }
+            using (StreamReader reader = new StreamReader(file))
+            {
+                string text = await reader.ReadToEndAsync();
+                t.Text=text;
+            }
         }
     }
 }
